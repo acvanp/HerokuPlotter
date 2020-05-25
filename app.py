@@ -23,7 +23,6 @@ python flask_matplotlib.py
 """
 import io
 from flask import Flask, Response, request
-from flask_table import Table, Col
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 import random
 import numpy as np
