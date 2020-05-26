@@ -22,7 +22,7 @@ pip install flask matplotlib
 python flask_matplotlib.py
 """
 import io
-from flask import Flask, Response, request
+from flask import Flask, Response, request, url_for
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 import random
 import numpy as np
@@ -47,26 +47,30 @@ def index():
 
     # in a real app you probably want to use a flask template.
     return f"""
-    <h1>Flask and matplotlib</h1>
-    <h2>Markov Chan Plot</h2>
-        <h4>Matrix Dimensions</h1>
+    <link rel="stylesheet" type="text/css" href="/static/CSS/main.css">
+    
+    <h4 class="top" >Markov Chain Plot</h4>
     <form method=get action="/">
-      <input name="lvec" type=number value="{lvec}" />
-        <h4>Number of Absorbing States</h1>
-      <input name="abstates" type=number value="{abstates}" />
-        <h4>Number of Trials (x-axis)</h1>
-      <input name="ntrials" type=number value="{ntrials}" />
-        <h4>Does the state matrix S get regenerated with random values when S stops changing? (1=yes, 0=no)</h1>
-      <input name="s_changes" type=number value="{s_changes}" />
-        <h4>Does the transition matrix P get regenerated with random values when S stops changing? (1=yes, 0=no)</h1>
-      <input name="m_changes" type=number value="{m_changes}" />
-      <input type=submit value="Update Plot">
-    </form>
-    <h3>Plot as a png</h3>
-    <img src="/matplot-as-image-{lvec}-{abstates}-{ntrials}-{s_changes}-{m_changes}.png"
+    <input  id = "button" class="top" type=submit value="Update Plot">
+    <img  class="top" id="content" src="/matplot-as-image-{lvec}-{abstates}-{ntrials}-{s_changes}-{m_changes}.png"
          alt="Markov chain plot as png"
          height="500"
     >
+    <body>
+        <p>Matrix Dimensions</p>
+          <input name="lvec" type=number value="{lvec}" />
+        <p>Number of Absorbing States</p>
+      <input name="abstates" type=number value="{abstates}" />
+        <p>Number of Trials (x-axis)</p>
+      <input name="ntrials" type=number value="{ntrials}" />
+        <p>Does the state matrix S get regenerated with random values when S stops changing? (1=yes, 0=no)</p>
+      <input name="s_changes" type=number value="{s_changes}" />
+        <p>Does the transition matrix P get regenerated with random values when S stops changing? (1=yes, 0=no)</p>
+      <input name="m_changes" type=number value="{m_changes}" />
+    </form>
+    <a href="https://github.com/acvanp/HerokuPlotter">  Github page  </a>
+    </body>
+    
     """
     # from flask import render_template
     # return render_template("yourtemplate.html", num_x_points=num_x_points)
@@ -160,9 +164,13 @@ def markov_chain_plotter(lvec=10, abstates=3, ntrials=100, s_changes=1, m_change
     for i in range(0,lvec):
         if sum(m[i]) == 1:
                  axis.scatter(range(0,ntrials), ll[i], s = 2, c = "black")    
+
         else:
             axis.scatter(range(0,ntrials), ll[i], s = 15, color="none", edgecolor = color[i])
- 
+            axis.set_xlabel("trials")
+            axis.set_ylabel("state values")
+            axis.set_title('Markov Chain Plot as PNG')
+
     output = io.BytesIO()
     FigureCanvasAgg(fig).print_png(output)
     return Response(output.getvalue(), mimetype="image/png")

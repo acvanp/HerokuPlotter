@@ -1,0 +1,46 @@
+
+h3, p, body{
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-family: sans-serif;
+    background-color: coral;
+    max-width: 40%;
+}
+
+
+img {
+    max-width: 60%;
+    height: auto;
+    position: absolute;
+    right: -20px;
+}
+
+@media only screen and (max-width: 600px) {
+    img{
+        width: 100%;
+    }
+
+    .top{
+       position: relative;
+       max-width: 100%;
+       text-align: center;
+    }
+
+    p, body{
+        margin: 0;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        bottom: 0px;
+        position: relative;
+        text-align: center;
+    }  
+
+    #button{
+        width: 50%;
+        right: -20px;
+        text-align: center;
+    }
+
+  }
+
