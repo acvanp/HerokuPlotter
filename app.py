@@ -162,11 +162,11 @@ def markov_chain_plotter(lvec=10, abstates=3, ntrials=100, s_changes=1, m_change
     axis = fig.add_subplot(1, 1, 1)
     
     for i in range(0,lvec):
-        if sum(m[i]) == 1:
-                 axis.scatter(range(0,ntrials), ll[i], s = 2, c = "black")    
+        if 1 in m[i]:
+            axis.scatter(range(0,ntrials), ll[i], s = 2, c = "black")    
 
         else:
-            axis.scatter(range(0,ntrials), ll[i], s = 15, color="none", edgecolor = color[i])
+            axis.scatter(range(0,ntrials), ll[i], s = 16, color="none", edgecolor = color[i], linewidth=0.6)
             axis.set_xlabel("trials")
             axis.set_ylabel("state values")
             axis.set_title('Markov Chain Plot as PNG')
