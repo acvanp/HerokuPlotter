@@ -39,9 +39,9 @@ app = Flask(__name__)
 def index():
     """ Returns html with the img tag for your plot.
     """
-    lvec = int(request.args.get("lvec", 10))
-    abstates = int(request.args.get("abstates", 3))
-    ntrials = int(request.args.get("ntrials", 100))
+    lvec = int(request.args.get("lvec", 25))
+    abstates = int(request.args.get("abstates", 2))
+    ntrials = int(request.args.get("ntrials", 160))
     s_changes = int(request.args.get("s_changes", 1))
     m_changes = int(request.args.get("m_changes", 0))
 
@@ -54,7 +54,7 @@ def index():
     <input  id = "button" class="top" type=submit value="Update Plot">
     <img  class="top" id="content" src="/matplot-as-image-{lvec}-{abstates}-{ntrials}-{s_changes}-{m_changes}.png"
          alt="Markov chain plot as png"
-         height="500"
+         
     >
     <body>
         <p>Matrix Dimensions</p>
